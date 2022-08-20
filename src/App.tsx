@@ -6,6 +6,7 @@ import { Navbar } from "./components/NavBar";
 import { AnswerPage } from "./components/pages/AnswerPage";
 import { HomePage } from "./components/pages/homePage/HomePage";
 import { LoginPage } from "./components/pages/LoginPage";
+import { TasksPage } from "./components/pages/TasksPage";
 export const authenticationContext = React.createContext(
   new AuthenticationData(
     false,
@@ -43,6 +44,8 @@ function App() {
             }
             <Route path="/login" element={<LoginPage />} />
             <Route path="/addAnswer/" element={<AnswerPage />} />
+            {authentication.role === "Teacher" &&
+              <Route path="/tasks/" element={<TasksPage />} />}
             <Route path="/logout" element={<LoginPage />} />
             <Route path="/*" element={<h1>Not found</h1>} />
           </Routes>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AnswerDTO } from "../../../dtos/AnswerDTO";
 import { authenticationContext } from "../../../App";
+import { AnswerDTO } from "../../../dtos/AnswerDTO";
 import { TaskDTO } from "../../../dtos/TaskDTO";
 import { TaskCard } from "../../TaskCard";
 import { AnswerCard } from "./AnswerCard";
@@ -15,12 +15,12 @@ export function StudentsHomePage() {
     let [teacherNames, setTeacherNames] = useState(new Array<string>());
     const actualTaskList = tasksAndAnswers.actualTaskDTOS.map(task => {
         return (
-            <TaskCard key={task.id} task={task} actual={true} />
+            <TaskCard key={task.id} task={task} actual={true} hideStatus={false} />
         )
     });
     const oldTaskList = tasksAndAnswers.oldTaskDTOS.map(task => {
         return (
-            <TaskCard key={task.id} task={task} actual={false} />
+            <TaskCard key={task.id} task={task} actual={false} hideStatus={false} />
         )
     });
     const answers = tasksAndAnswers.answerDTOS.map(answer => {
@@ -32,6 +32,14 @@ export function StudentsHomePage() {
         return <option key={name} value={name}>{name}</option>
     })
     useEffect(() => {
+        async function loadTeacherNames() {
+            let response = await fetch("http://localhost:8080/api/student/teacherNames", {
+                method: "GET",
+                headers: authentication.authHeader
+            });
+            let teacherNames = await response.json();
+            setTeacherNames(teacherNames);
+        }
         loadTeacherNames();
         loadTasks();
     }, []);
@@ -55,16 +63,6 @@ export function StudentsHomePage() {
             setTasksAndAnswers(tasks);
         } else loadTasks();
     }
-
-    async function loadTeacherNames() {
-        let response = await fetch("http://localhost:8080/api/student/teacherNames", {
-            method: "GET",
-            headers: authentication.authHeader
-        });
-        let teacherNames = await response.json();
-        setTeacherNames(teacherNames);
-    }
-    
     return (
         <>
             <div className="col-3 offset-md-9">

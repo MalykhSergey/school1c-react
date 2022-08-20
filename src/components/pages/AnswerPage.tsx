@@ -14,6 +14,7 @@ export function AnswerPage() {
     let [isBodyValid, setIsBodyValid] = useState(true);
     let [notificationMessage, setNotificationMessage] = useState("");
     let isSended = useRef(false);
+    useEffect(()=>{document.title = "Добавить ответ"},[]);
     async function send(event: React.MouseEvent) {
         event.preventDefault();
         if (isSended.current)

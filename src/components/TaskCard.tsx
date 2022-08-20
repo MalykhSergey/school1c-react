@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { TaskDTO } from "../dtos/TaskDTO";
 
-export function TaskCard(props: { task: TaskDTO, actual: boolean }) {
+export function TaskCard(props: { task: TaskDTO, actual: boolean, hideStatus: boolean }) {
     return (
         <div className="card mb-3">
             <div className="card-header">
-                <h5>{props.actual ? "Не решено!" : "Просрочено!"}</h5>
+                {!props.hideStatus &&
+                    <h5>{props.actual ? "Не решено!" : "Просрочено!"}</h5>}
                 <h6>От: {props.task.teacherName}</h6>
                 <h6>Выполнить до:</h6>
                 <h6>{props.task.dateString}</h6>

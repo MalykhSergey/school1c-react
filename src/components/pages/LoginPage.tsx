@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authenticationContext } from "../../App";
 import { TooLongName, TooLongPassword, TooShortName, TooShortPassword } from "../../Results";
@@ -10,6 +10,7 @@ export function LoginPage() {
     const [passwordData, setPasswordData] = useState({ password: "", isValid: true, message: "" })
     const [nameData, setNameData] = useState({ name: "", isValid: true, message: "" })
     const navigator = useNavigate();
+    useEffect(()=>{document.title = "Главная"},[]);
     function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
         let passwordString = event.currentTarget.value;
         if (passwordString.length < Password.min) setPasswordData({ password: passwordString, isValid: false, message: TooShortPassword });
