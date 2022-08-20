@@ -7,6 +7,7 @@ export function Navbar() {
     function logoutClick() {
         console.log(authentication);
         authentication.setState({ authenticated: false, role: "", authHeader: { Authorization: "" } });
+        localStorage.removeItem("authentication");
     }
     return (
         <nav className="navbar navbar-expand-lg">

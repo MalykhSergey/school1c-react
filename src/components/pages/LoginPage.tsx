@@ -1,6 +1,9 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authenticationContext } from "../../App";
+import { TooLongName, TooLongPassword, TooShortName, TooShortPassword } from "../../Results";
+import { Name, Password } from "../../StringsLegthConstants";
+import { NotificationAlert } from "../NotificationAlert";
 
 export function LoginPage() {
     const authentication = useContext(authenticationContext)
@@ -9,17 +12,15 @@ export function LoginPage() {
     const navigator = useNavigate();
     function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
         let passwordString = event.currentTarget.value;
-        if (passwordString.length < 2)
-            setPasswordData({ password: passwordString, isValid: false, message: "Введите пароль длиннее 2 символов" })
-        else
-            setPasswordData({ password: passwordString, isValid: true, message: "" })
+        if (passwordString.length < Password.min) setPasswordData({ password: passwordString, isValid: false, message: TooShortPassword });
+        else if (passwordString.length > Password.max) setPasswordData({ password: passwordString, isValid: false, message: TooLongPassword });
+        else setPasswordData({ password: passwordString, isValid: true, message: "" });
     }
     function changeName(event: React.ChangeEvent<HTMLInputElement>) {
         let nameString = event.currentTarget.value;
-        if (nameString.length < 5)
-            setNameData({ name: nameString, isValid: false, message: "Введите имя длиннее 5 символов" })
-        else
-            setNameData({ name: nameString, isValid: true, message: "" })
+        if (nameString.length < Name.min) setNameData({ name: nameString, isValid: false, message: TooShortName });
+        else if (nameString.length > Name.max) setNameData({ name: nameString, isValid: false, message: TooLongName })
+        else setNameData({ name: nameString, isValid: true, message: "" });
     }
     async function submitClick(event: React.MouseEvent) {
         event.preventDefault();
@@ -31,7 +32,9 @@ export function LoginPage() {
             })
             if (result.status === 200) {
                 navigator("/");
-                authentication.setState({ authenticated: true, authHeader: authHeader, role: await result.json() })
+                let auth = { authenticated: true, authHeader: authHeader, role: await result.json() };
+                authentication.setState(auth)
+                localStorage.setItem("authentication", JSON.stringify(auth));
             }
             else setPasswordData({ password: passwordData.password, isValid: false, message: "Введённые данные не верны." })
         }
@@ -44,9 +47,7 @@ export function LoginPage() {
                     <label htmlFor="name">Имя</label>
                     <input onChange={changeName} type="text" id="name" className="form-control mb-3" name="userName" placeholder="Введите имя" />
                     {!nameData.isValid &&
-                        <div className="alert alert-danger" role="alert">
-                            {nameData.message}
-                        </div>
+                        <NotificationAlert succesful={nameData.isValid} message={nameData.message}></NotificationAlert>
                     }
                 </div>
                 <div className="mb-3">
@@ -54,12 +55,10 @@ export function LoginPage() {
                     <input onChange={changePassword} type="password" className="form-control mb-3" id="exampleInputPassword1" name="password"
                         placeholder="Введите пароль" />
                     {!passwordData.isValid &&
-                        <div className="alert alert-danger" role="alert">
-                            {passwordData.message}
-                        </div>
+                        <NotificationAlert succesful={passwordData.isValid} message={passwordData.message}></NotificationAlert>
                     }
                 </div>
-                <button type="submit" className="btn btn-primary mb-3" onClick={submitClick}>Войти</button>
+                <button disabled={!(passwordData.isValid && nameData.isValid)} className="btn btn-primary mb-3" onClick={submitClick}>Войти</button>
             </form>
         </div>
     )
