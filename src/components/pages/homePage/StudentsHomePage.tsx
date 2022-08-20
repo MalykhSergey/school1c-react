@@ -67,7 +67,7 @@ export function StudentsHomePage() {
     
     return (
         <>
-            <div className="col-3">
+            <div className="col-3 offset-md-9">
                 <label htmlFor="teacherName">Вывести задания и ответы от:</label>
                 <select name="teacherName" id="teacherName" title="Выберите имя учителя" className="form-select" onChange={loadTasksByTeacherName}>
                     <option value="all">Всех</option>

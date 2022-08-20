@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { TaskDTO } from "../TaskDTO";
 
 export function TaskCard(props: { task: TaskDTO, actual: boolean }) {
@@ -13,8 +14,8 @@ export function TaskCard(props: { task: TaskDTO, actual: boolean }) {
                 <h5 className="card-title">{props.task.name}</h5>
                 <p className="card-text">{props.task.body}</p>
                 {props.actual &&
-                    <a href={"/addAnswer/?id=" + props.task.id}
-                        className="btn btn-primary">Выполнить</a>}
+                    <Link to={"/addAnswer/?taskId=" + props.task.id} state={props.task}
+                        className="btn btn-primary">Выполнить</Link>}
             </div>
         </div>
     )
