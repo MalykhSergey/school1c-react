@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AnswerDTO } from "../../../AnswerDTO";
+import { AnswerDTO } from "../../../dtos/AnswerDTO";
 import { authenticationContext } from "../../../App";
-import { TaskDTO } from "../../../TaskDTO";
+import { TaskDTO } from "../../../dtos/TaskDTO";
 import { TaskCard } from "../../TaskCard";
 import { AnswerCard } from "./AnswerCard";
 
@@ -37,7 +37,7 @@ export function StudentsHomePage() {
     }, []);
 
     async function loadTasks() {
-        let response = await fetch("http://localhost:8080/api/studentsTasksAndAnswers", {
+        let response = await fetch("http://localhost:8080/api/student/tasksAndAnswers", {
             method: "GET",
             headers: authentication.authHeader
         });
@@ -47,7 +47,7 @@ export function StudentsHomePage() {
 
     async function loadTasksByTeacherName(event: React.ChangeEvent<HTMLSelectElement>) {
         if (event.currentTarget.value !== "all") {
-            let response = await fetch("http://localhost:8080/api/studentsTasksAndAnswers?" + new URLSearchParams({ teacherName: event.currentTarget.value }), {
+            let response = await fetch("http://localhost:8080/api/student/tasksAndAnswers?" + new URLSearchParams({ teacherName: event.currentTarget.value }), {
                 method: "GET",
                 headers: authentication.authHeader
             });
@@ -57,7 +57,7 @@ export function StudentsHomePage() {
     }
 
     async function loadTeacherNames() {
-        let response = await fetch("http://localhost:8080/api/teacherNames", {
+        let response = await fetch("http://localhost:8080/api/student/teacherNames", {
             method: "GET",
             headers: authentication.authHeader
         });

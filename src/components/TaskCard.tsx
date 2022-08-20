@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { TaskDTO } from "../TaskDTO";
+import { TaskDTO } from "../dtos/TaskDTO";
 
 export function TaskCard(props: { task: TaskDTO, actual: boolean }) {
     return (

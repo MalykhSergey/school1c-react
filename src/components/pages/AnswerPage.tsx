@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { authenticationContext } from "../../App";
 import { TooLongAnswerBody, TooShortAnswerBody } from "../../Results";
 import { AnswerBody } from "../../StringsLegthConstants";
-import { TaskDTO } from "../../TaskDTO";
+import { TaskDTO } from "../../dtos/TaskDTO";
 import { NotificationAlert } from "../NotificationAlert";
 
 export function AnswerPage() {
@@ -20,7 +20,7 @@ export function AnswerPage() {
             setNotificationMessage("Вы уже отправили ответ!");
         else if (!isBodyValid) return;
         else {
-            let result = await fetch("http://127.0.0.1:8080/api/addAnswer/?" + new URLSearchParams({ taskId: task.id.toString() }), {
+            let result = await fetch("http://127.0.0.1:8080/api/student/addAnswer/?" + new URLSearchParams({ taskId: task.id.toString() }), {
                 method: "POST",
                 headers: authentication.authHeader,
                 body: body
