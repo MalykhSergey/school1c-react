@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { authenticationContext } from "../App";
 
 export function Navbar() {
@@ -26,13 +26,9 @@ export function Navbar() {
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Возможности
                                 </a>
-                                {authentication.role === "ROLE_ADMIN" &&
+                                {authentication.role === "Teacher" &&
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a className="dropdown-item" href="/user/add">Добавить пользователя</a></li>
-                                        <li><a className="dropdown-item" href="/school/add">Добавить школу</a></li>
-                                        <li><a className="dropdown-item" href="/class/add">Добавить класс</a></li>
-                                        <li><a className="dropdown-item" href="/class/linkTeacher">Привязать учителя к классу</a></li>
-                                        <li><a className="dropdown-item" href="/class/linkStudent">Переприривязать ученика к классу</a></li>
+                                        <li><Link to="/addTask" className="dropdown-item">Добавить задачу</Link></li>
                                     </ul>
                                 }
                             </li>}
