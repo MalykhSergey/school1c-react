@@ -9,7 +9,7 @@ export function LoginPage() {
     const [nameData, setNameData] = useState(new FieldState("", false, ""));
     const [passwordData, setPasswordData] = useState(new FieldState("", false, ""));
     const navigator = useNavigate();
-    useEffect(() => { document.title = "Главная" }, []);
+    useEffect(() => { document.title = "Войти" }, []);
     async function submitClick(event: React.MouseEvent) {
         event.preventDefault();
         if (nameData.isValid && passwordData.isValid) {
