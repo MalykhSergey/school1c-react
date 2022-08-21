@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import './App.css';
 import { AuthenticationData } from "./AuthenticationData";
 import { Navbar } from "./components/NavBar";
+import { AddTaskPage } from "./components/pages/AddTaskPage";
 import { AnswerPage } from "./components/pages/AnswerPage";
 import { HomePage } from "./components/pages/homePage/HomePage";
 import { LoginPage } from "./components/pages/LoginPage";
@@ -43,9 +44,13 @@ function App() {
               <Route path='/' element={<HomePage />} />
             }
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/addAnswer/" element={<AnswerPage />} />
+            <Route path="/addAnswer" element={<AnswerPage />} />
             {authentication.role === "Teacher" &&
-              <Route path="/tasks/" element={<TasksPage />} />}
+              <>
+                <Route path="/tasks" element={<TasksPage />} />
+                <Route path="/addTask" element={<AddTaskPage />} />
+              </>
+            }
             <Route path="/logout" element={<LoginPage />} />
             <Route path="/*" element={<h1>Not found</h1>} />
           </Routes>
