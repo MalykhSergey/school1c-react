@@ -1,32 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authenticationContext } from "../../App";
-import { TooLongName, TooLongPassword, TooShortName, TooShortPassword } from "../../Results";
-import { Name, Password } from "../../StringsLegthConstants";
+import { changeField, FieldState, NameField, PasswordField } from "../../Fields";
 import { NotificationAlert } from "../NotificationAlert";
 
 export function LoginPage() {
-    const authentication = useContext(authenticationContext)
-    const [passwordData, setPasswordData] = useState({ password: "", isValid: true, message: "" })
-    const [nameData, setNameData] = useState({ name: "", isValid: true, message: "" })
+    const authentication = useContext(authenticationContext);
+    const [nameData, setNameData] = useState(new FieldState("", false, ""));
+    const [passwordData, setPasswordData] = useState(new FieldState("", false, ""));
     const navigator = useNavigate();
-    useEffect(()=>{document.title = "Главная"},[]);
-    function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
-        let passwordString = event.currentTarget.value;
-        if (passwordString.length < Password.min) setPasswordData({ password: passwordString, isValid: false, message: TooShortPassword });
-        else if (passwordString.length > Password.max) setPasswordData({ password: passwordString, isValid: false, message: TooLongPassword });
-        else setPasswordData({ password: passwordString, isValid: true, message: "" });
-    }
-    function changeName(event: React.ChangeEvent<HTMLInputElement>) {
-        let nameString = event.currentTarget.value;
-        if (nameString.length < Name.min) setNameData({ name: nameString, isValid: false, message: TooShortName });
-        else if (nameString.length > Name.max) setNameData({ name: nameString, isValid: false, message: TooLongName })
-        else setNameData({ name: nameString, isValid: true, message: "" });
-    }
+    useEffect(() => { document.title = "Главная" }, []);
     async function submitClick(event: React.MouseEvent) {
         event.preventDefault();
         if (nameData.isValid && passwordData.isValid) {
-            let authHeader = { Authorization: 'Basic ' + btoa(unescape(encodeURIComponent(`${nameData.name}:${passwordData.password}`))) };
+            let authHeader = { Authorization: 'Basic ' + btoa(unescape(encodeURIComponent(`${nameData.value}:${passwordData.value}`))) };
             let result = await fetch("http://127.0.0.1:8080/api/login", {
                 method: "GET",
                 headers: authHeader
@@ -37,7 +24,7 @@ export function LoginPage() {
                 authentication.setState(auth)
                 localStorage.setItem("authentication", JSON.stringify(auth));
             }
-            else setPasswordData({ password: passwordData.password, isValid: false, message: "Введённые данные не верны." })
+            else setPasswordData({ value: passwordData.value, isValid: false, message: "Введённые данные не верны." })
         }
     }
     return (
@@ -46,16 +33,16 @@ export function LoginPage() {
             <form>
                 <div className="mb-3">
                     <label htmlFor="name">Имя</label>
-                    <input onChange={changeName} type="text" id="name" className="form-control mb-3" name="userName" placeholder="Введите имя" />
-                    {!nameData.isValid &&
+                    <input onChange={event => changeField(event, NameField, setNameData)} type="text" id="name" className="form-control mb-3" name="userName" placeholder="Введите имя" />
+                    {nameData.message != "" &&
                         <NotificationAlert succesful={nameData.isValid} message={nameData.message}></NotificationAlert>
                     }
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1">Пароль</label>
-                    <input onChange={changePassword} type="password" className="form-control mb-3" id="exampleInputPassword1" name="password"
+                    <input onChange={event => changeField(event, PasswordField, setPasswordData)} type="password" className="form-control mb-3" id="exampleInputPassword1" name="password"
                         placeholder="Введите пароль" />
-                    {!passwordData.isValid &&
+                    {passwordData.message != "" &&
                         <NotificationAlert succesful={passwordData.isValid} message={passwordData.message}></NotificationAlert>
                     }
                 </div>
