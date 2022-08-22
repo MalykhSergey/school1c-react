@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { authenticationContext } from "../../../App";
 import { ClassDTO, getNameWithNumberOfClass } from "../../../dtos/ClassDTO";
-import { loadClassesForTeacher } from "../../../utils";
+import { loadClassesForTeacher } from "./utils";
 
 export function TeachersHomePage() {
     let [classes, setClasses] = useState(new Array<ClassDTO>());
