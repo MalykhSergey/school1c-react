@@ -1,28 +1,19 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { authenticationContext } from "../../../App";
-import { ClassDTO } from "../../../dtos/ClassDTO";
+import { ClassDTO, getNameWithNumberOfClass } from "../../../dtos/ClassDTO";
+import { loadClassesForTeacher } from "../../../utils";
 
 export function TeachersHomePage() {
     let [classes, setClasses] = useState(new Array<ClassDTO>());
     let authentication = useContext(authenticationContext);
     useEffect(() => {
-        async function loadClasses() {
-            let result = await fetch("http://127.0.0.1:8080/api/teacher/classes", {
-                method: "GET",
-                headers: authentication.authHeader,
-            });
-            if (!result.ok) return;
-            else {
-                setClasses(await result.json())
-            }
-        }
-        loadClasses();
+        loadClassesForTeacher(authentication, setClasses);
     }, [])
     let classList = classes.map((schoolClass) => {
         return (
             <h4 key={schoolClass.classId}>
-                <Link className="text-decoration-none" to={"/tasks/?classId="+schoolClass.classId} state={schoolClass}>{schoolClass.className}</Link>
+                <Link className="text-decoration-none" to={"/tasks/?classId=" + schoolClass.classId} state={schoolClass}>{getNameWithNumberOfClass(schoolClass)}</Link>
             </h4>
         )
     });

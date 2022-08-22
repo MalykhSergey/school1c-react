@@ -21,7 +21,7 @@ export function AnswerPage() {
         else {
             let result = await fetch("http://127.0.0.1:8080/api/student/addAnswer/?" + new URLSearchParams({ taskId: task.id.toString() }), {
                 method: "POST",
-                headers: authentication.authHeader,
+                headers: { Authorization: authentication.authHeader },
                 body: bodyField.value
             });
             if (!result.ok) {

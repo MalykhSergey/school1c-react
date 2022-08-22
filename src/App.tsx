@@ -12,15 +12,15 @@ export const authenticationContext = React.createContext(
   new AuthenticationData(
     false,
     "",
-    { Authorization: "" },
+    "",
     ({
       authenticated: boolean,
       role: String,
-      authHeader: { Authorization: string }
+      authHeader: string
     }) => { })
 );
 function App() {
-  const [authentication, setAuthentication] = useState({ authenticated: false, role: "", authHeader: { Authorization: "" } });
+  const [authentication, setAuthentication] = useState({ authenticated: false, role: "", authHeader: "" });
   useEffect(() => {
     let auth = localStorage.getItem("authentication");
     if (auth != null) {

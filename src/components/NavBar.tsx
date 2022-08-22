@@ -6,7 +6,7 @@ export function Navbar() {
     const authentication = useContext(authenticationContext)
     function logoutClick() {
         console.log(authentication);
-        authentication.setState({ authenticated: false, role: "", authHeader: { Authorization: "" } });
+        authentication.setState({ authenticated: false, role: "", authHeader: "" });
         localStorage.removeItem("authentication");
     }
     return (

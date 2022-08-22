@@ -35,7 +35,7 @@ export function StudentsHomePage() {
         async function loadTeacherNames() {
             let response = await fetch("http://localhost:8080/api/student/teacherNames", {
                 method: "GET",
-                headers: authentication.authHeader
+                headers: { Authorization: authentication.authHeader }
             });
             let teacherNames = await response.json();
             setTeacherNames(teacherNames);
@@ -47,7 +47,7 @@ export function StudentsHomePage() {
     async function loadTasks() {
         let response = await fetch("http://localhost:8080/api/student/tasksAndAnswers", {
             method: "GET",
-            headers: authentication.authHeader
+            headers: { Authorization: authentication.authHeader }
         });
         let tasks = await response.json();
         setTasksAndAnswers(tasks);
@@ -57,7 +57,7 @@ export function StudentsHomePage() {
         if (event.currentTarget.value !== "all") {
             let response = await fetch("http://localhost:8080/api/student/tasksAndAnswers?" + new URLSearchParams({ teacherName: event.currentTarget.value }), {
                 method: "GET",
-                headers: authentication.authHeader
+                headers: { Authorization: authentication.authHeader }
             });
             let tasks = await response.json();
             setTasksAndAnswers(tasks);

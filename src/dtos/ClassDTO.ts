@@ -10,6 +10,6 @@ export class ClassDTO {
 	}
 }
 
-export function getNameWithNumber(classDTO: ClassDTO): string {
+export function getNameWithNumberOfClass(classDTO: ClassDTO): string {
 	return classDTO.classNumber + "-" + classDTO.className
 }

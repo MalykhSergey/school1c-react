@@ -13,10 +13,10 @@ export function LoginPage() {
     async function submitClick(event: React.MouseEvent) {
         event.preventDefault();
         if (nameData.isValid && passwordData.isValid) {
-            let authHeader = { Authorization: 'Basic ' + btoa(unescape(encodeURIComponent(`${nameData.value}:${passwordData.value}`))) };
+            let authHeader = 'Basic ' + btoa(unescape(encodeURIComponent(`${nameData.value}:${passwordData.value}`)));
             let result = await fetch("http://127.0.0.1:8080/api/login", {
                 method: "GET",
-                headers: authHeader
+                headers: { Authorization: authHeader }
             })
             if (result.status === 200) {
                 navigator("/");
