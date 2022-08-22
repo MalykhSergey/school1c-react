@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { authenticationContext } from "../../../App";
 import { AnswerDTO } from "../../../dtos/AnswerDTO";
 import { TaskDTO } from "../../../dtos/TaskDTO";
+import { AnswerCard } from "../../AnswerCard";
 import { TaskCard } from "../../TaskCard";
-import { AnswerCard } from "./AnswerCard";
 
 export function StudentsHomePage() {
     const authentication = useContext(authenticationContext)
