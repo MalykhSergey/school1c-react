@@ -1,6 +1,7 @@
-import { ClassDTO, getNameWithNumberOfClass } from "../dtos/ClassDTO";
-import { FieldState } from "../Fields";
-import { NotificationAlert } from "./NotificationAlert";
+import { ClassDTO, getNameWithNumberOfClass } from "../../../dtos/ClassDTO";
+import { FieldState } from "../../../Fields";
+import { NotificationAlert } from "../../NotificationAlert";
+
 
 export function ClassSelect(props: { classes: Array<ClassDTO>, classIdField: FieldState, setClassIdField: (classIdField: FieldState) => void }) {
     let classList = props.classes.map((schoolClass) => {

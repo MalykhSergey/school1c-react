@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { authenticationContext } from "../../../App";
-import { StudentsHomePage } from "./StudentsHomePage";
-import { TeachersHomePage } from "./TeachersHomePage";
+import { authenticationContext } from "../../App";
+import { StudentsHomePage } from "./students/StudentsHomePage";
+import { TeachersHomePage } from "./teachers/TeachersHomePage";
 
 export function HomePage() {
     const authentication = useContext(authenticationContext)

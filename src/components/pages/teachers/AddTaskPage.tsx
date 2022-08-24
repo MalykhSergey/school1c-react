@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { authenticationContext } from "../../App";
-import { ClassDTO } from "../../dtos/ClassDTO";
-import { TaskDTO } from "../../dtos/TaskDTO";
-import { changeField, FieldState, TaskBodyField, TaskNameField } from "../../Fields";
-import { loadClassesForTeacher } from "../../utils";
-import { ClassSelect } from "../ClassSelect";
-import { NotificationAlert } from "../NotificationAlert";
-
+import { authenticationContext } from "../../../App";
+import { ClassDTO } from "../../../dtos/ClassDTO";
+import { TaskDTO } from "../../../dtos/TaskDTO";
+import { changeField, FieldState, TaskBodyField, TaskNameField } from "../../../Fields";
+import { NotificationAlert } from "../../NotificationAlert";
+import { ClassSelect } from "./ClassSelect";
+import { loadClassesForTeacher } from "./utils";
 export function AddTaskPage() {
     let authentication = useContext(authenticationContext);
     let [taskNameField, setTaskNameField] = useState(new FieldState("", true, ""))
     let [taskBodyField, setTaskBodyField] = useState(new FieldState("", true, ""))
-    let [classes, setClasses] = useState(new Array<ClassDTO>)
+    let [classes, setClasses] = useState(new Array<ClassDTO>())
     let [classIdField, setClassIdField] = useState(new FieldState("", true, ""));
     let [inputDate, setInputDate] = useState("");
     let [resultMessage, setResultMessage] = useState({ succesful: true, message: "" });
@@ -62,7 +61,7 @@ export function AddTaskPage() {
                     <input onChange={(event) => { setInputDate(event.currentTarget.value) }} type="datetime-local" id="taskDate" name="taskDate" className="form-control" min={currentDateString.substring(0, currentDateString.length - 8)} />
                 </div>
                 <button className="btn btn-primary mb-3" onClick={sendTask}>Отправить</button>
-                {resultMessage.message != "" &&
+                {resultMessage.message !== "" &&
                     <NotificationAlert succesful={resultMessage.succesful} message={resultMessage.message} />}
             </form>
         </div>

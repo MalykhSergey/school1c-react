@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { authenticationContext } from "../../App";
-import { ClassDTO, getNameWithNumberOfClass } from "../../dtos/ClassDTO";
-import { TaskDTO } from "../../dtos/TaskDTO";
-import { TaskCard } from "../TaskCard";
+import { authenticationContext } from "../../../App";
+import { ClassDTO, getNameWithNumberOfClass } from "../../../dtos/ClassDTO";
+import { TaskDTO } from "../../../dtos/TaskDTO";
+import { TaskCard } from "../../TaskCard";
 
 export function TasksPage() {
     let classDTO = useLocation().state as ClassDTO;
-    let [tasks, setTasks] = useState(new Array<TaskDTO>)
+    let [tasks, setTasks] = useState(new Array<TaskDTO>())
     let authentication = useContext(authenticationContext);
     useEffect(() => { document.title = "Задачи для " + getNameWithNumberOfClass(classDTO)+" класса" }, []);
     useEffect(() => {

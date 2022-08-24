@@ -1,5 +1,5 @@
-import { AnswerDTO } from "../../../dtos/AnswerDTO";
-import { TaskDTO } from "../../../dtos/TaskDTO";
+import { AnswerDTO } from "../dtos/AnswerDTO";
+import { TaskDTO } from "../dtos/TaskDTO";
 
 export function AnswerCard(props: { task: TaskDTO, answer: AnswerDTO }) {
     return (

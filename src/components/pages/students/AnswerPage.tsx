@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { authenticationContext } from "../../App";
-import { TaskDTO } from "../../dtos/TaskDTO";
-import { AnswerBodyField, changeField, FieldState } from "../../Fields";
-import { NotificationAlert } from "../NotificationAlert";
+import { authenticationContext } from "../../../App";
+import { TaskDTO } from "../../../dtos/TaskDTO";
+import { FieldState, changeField, AnswerBodyField } from "../../../Fields";
+import { NotificationAlert } from "../../NotificationAlert";
+
 
 export function AnswerPage() {
     let authentication = useContext(authenticationContext);
     let task: TaskDTO = useLocation().state as TaskDTO;
-    let first = useRef(true);
     let [bodyField, setBodyField] = useState(new FieldState("", true, ""));
     let isSended = useRef(false);
     useEffect(() => { document.title = "Добавить ответ" }, []);

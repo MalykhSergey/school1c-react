@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Route, Routes} from "react-router-dom";
 import './App.css';
-import { AuthenticationData } from "./AuthenticationData";
-import { Navbar } from "./components/NavBar";
-import { AddTaskPage } from "./components/pages/AddTaskPage";
-import { AnswerPage } from "./components/pages/AnswerPage";
-import { HomePage } from "./components/pages/homePage/HomePage";
-import { LoginPage } from "./components/pages/LoginPage";
-import { TasksPage } from "./components/pages/TasksPage";
+import {AuthenticationData} from "./AuthenticationData";
+import {Navbar} from "./components/NavBar";
+import {HomePage} from "./components/pages/HomePage";
+import {LoginPage} from "./components/pages/LoginPage";
+import {AnswerPage} from "./components/pages/students/AnswerPage";
+import {TasksPage} from "./components/pages/teachers/TasksPage";
+import {AddTaskPage} from "./components/pages/teachers/AddTaskPage";
+
 export const authenticationContext = React.createContext(
   new AuthenticationData(
     false,
